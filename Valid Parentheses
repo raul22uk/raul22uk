@@ -1,0 +1,92 @@
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+An input string is valid if:
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+3. Every close bracket has a corresponding open bracket of the same type.
+ 
+Example 1:
+Input: s = "()"
+Output: true
+Example 2:
+Input: s = "()[]{}"
+Output: true
+Example 3:
+Input: s = "(]"
+Output: false
+ 
+Constraints:
+	• 1 <= s.length <= 104
+	• s consists of parentheses only '()[]{}'.
+
+
+class Solution {
+    public boolean isValid(String s) {
+     List<Character> lastOpen = new ArrayList<>();
+        try {
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == '(' || s.charAt(i) == '[' || s.charAt(i) == '{') {
+                    lastOpen.add(s.charAt(i));
+                } else {
+                    if (s.charAt(i) == ')') {
+                        int lastIndex = lastOpen.size() - 1;
+                        if (lastOpen.get(lastIndex) == '(') {
+                            lastOpen.remove(lastIndex);
+                        } else {
+                            return false;
+                        }
+                    }
+                    if (s.charAt(i) == ']') {
+                        int lastIndex = lastOpen.size() - 1;
+                        if (lastOpen.get(lastIndex) == '[') {
+                            lastOpen.remove(lastIndex);
+                        } else {
+                            return false;
+                        }
+                    }
+                    if (s.charAt(i) == '}') {
+                        int lastIndex = lastOpen.size() - 1;
+                        if (lastOpen.get(lastIndex) == '{') {
+                            lastOpen.remove(lastIndex);
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return lastOpen.isEmpty();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }   
+    }
+}
+
+
+
+
+Better version
+
+class Solution {
+   static HashMap<Character, Character> brackets = new HashMap<>();
+    static {
+        brackets.put(')', '(');
+        brackets.put('}', '{');
+        brackets.put(']', '[');
+    }
+    public boolean isValid(String s) {
+        List<Character> lastOpen = new LinkedList<>();
+        try {
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == '(' || s.charAt(i) == '[' || s.charAt(i) == '{') {
+                    lastOpen.add(s.charAt(i));
+                } else {
+                    if(brackets.get(s.charAt(i)) != lastOpen.remove(lastOpen.size() - 1)){
+                            return false;
+                    }
+                }
+            }
+            return lastOpen.isEmpty();
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+}
