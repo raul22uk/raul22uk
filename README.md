@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @raul22uk
 - 👀 I’m interested in latest technology.
-- 🌱 I’m currently learning Java/Python/OpenEdge progress.
+- 🌱 I’m currently learning Java/Spring Boot/Github
 - 💞️ I’m looking to collaborate on everything I can.
 - 📫 How to reach me raul22uk@gmail.com
 
